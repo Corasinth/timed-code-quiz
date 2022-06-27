@@ -65,9 +65,19 @@ button:hover {
     width:fit-content;
     margin: auto;
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 2em;
     text-align: center;
+    display: table;
+    flex-direction: column;
+    clear: right;
+}
+
+label {
+    display: inline-block;
+    width:100px;
+    text-align: right;
+    margin-right:.5em;
 }
