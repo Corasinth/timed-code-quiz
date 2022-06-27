@@ -8,6 +8,9 @@ body {
 }
 
 /*High Score styling*/
+header {
+    display:none;
+}
 #highscores {
     position: absolute;
     margin: 1em;
@@ -29,6 +32,7 @@ body {
     margin:15%;
     text-align: left;
     margin-top: 10%;
+    display:none;
 }
 
 #questionTitle {
@@ -57,3 +61,13 @@ button:hover {
 }
 
 /*Highscore submission styling*/
+#scoresubmission {
+    width:fit-content;
+    margin: auto;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    text-align: center;
+}
