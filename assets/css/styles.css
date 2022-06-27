@@ -5,6 +5,14 @@
     border: solid black;
 }
 
+/*Timer Styling*/
+#timer {
+    position:absolute;
+    margin: 1em;
+    right: 1em;
+    border: solid black;
+}
+
 /*Question box styling*/
 .question {
     position: absolute;
