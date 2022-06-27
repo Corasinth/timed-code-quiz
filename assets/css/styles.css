@@ -11,6 +11,7 @@ body {
 header {
 
 }
+
 #highscores {
     position: absolute;
     margin: 1em;
@@ -23,6 +24,22 @@ header {
     right: 1em;
     font-weight: bolder;
     font-size: 1.5em;
+}
+
+/*Start-quiz question styling*/
+#openingscreen {
+    width:fit-content;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    font-size: 2em;
+    text-align: center;
+    display: table;
+    flex-direction: column; 
+    display:none;  
 }
 
 /*Question box styling*/
@@ -88,7 +105,7 @@ button:hover {
 }
 
 /*Highscore submission styling*/
-.bookendcard {
+.scoresubmission {
     width:fit-content;
     margin: auto;
     position: absolute;
