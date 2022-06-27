@@ -1,4 +1,7 @@
 /*High Score styling*/
+* {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
 #highscores {
     position: absolute;
     margin: 1em;
@@ -10,6 +13,8 @@
     position:absolute;
     margin: 1em;
     right: 1em;
+    font-weight: bolder;
+    font-size: 1.5em;
     border: solid black;
 }
 
