@@ -42,14 +42,15 @@
 
     <section id="scoresubmission">
         <h3>Submit Your Score!</h3>
-        <table class="entry">
+        <div class="entry">
         <label for="initials">Initials:</label>
-        <input type="text" id="initials">
-        </table>
-        <table class="entry" id="entry2">
+        <input type="text" id="initials" maxlength="3">
+        </div>
+        <div class="entry" id="entry2">
         <label for="newscore">Score:</label>
-        <input type="text" id="newscore">
-        </table>
+        <input type="text" id="newscore" maxlength="2">
+        </div>
+        <button>Submit!</button>
     </section>
 
     <script src="./assets/js/script.js"></script>
