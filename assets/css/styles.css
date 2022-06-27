@@ -1,0 +1,29 @@
+/*High Score styling*/
+#highscores {
+    position: absolute;
+    margin: 1em;
+    border: solid black;
+}
+
+/*Question box styling*/
+.question {
+    position: absolute;
+    border: solid black;
+    width:70%;
+    margin:15%;
+    text-align: left;
+    margin-top: 10%;
+}
+
+#questionTitle {
+    margin-left: 2em;
+}
+
+.answers {
+    text-align: left;
+    list-style-position: inside;
+}
+
+.answeritem {
+    text-align: left;
+}
