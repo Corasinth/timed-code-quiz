@@ -1,7 +1,13 @@
-/*High Score styling*/
+/*General Styles*/
 * {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+body {
+    background-color: rgb(93, 129, 186);
+}
+
+/*High Score styling*/
 #highscores {
     position: absolute;
     margin: 1em;
@@ -39,4 +45,11 @@
 
 .answeritem {
     text-align: left;
+    margin: 1em;
+}
+
+button {
+    background-color: rgb(75, 180, 121);
+    border-radius: 2px;
+    border: none;
 }
