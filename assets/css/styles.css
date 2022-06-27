@@ -50,11 +50,11 @@ header {
 }
 
 /*Individual stylings for each question box*/
-/*
+
 #question1 {
     display:none;
 }
-*/
+
 #question2 {
     display:none;
 }
@@ -88,7 +88,7 @@ button:hover {
 }
 
 /*Highscore submission styling*/
-#scoresubmission {
+.bookendcard {
     width:fit-content;
     margin: auto;
     position: absolute;
