@@ -52,6 +52,9 @@ document.body.addEventListener ("click", function (event) {
             scoreSubmission.setAttribute("style", "display:block")
             console.log ("correct!");
             break;
+            case "submit":
+            scoreSubmission.setAttribute("style", "display:none")
+            startPage.setAttribute("style", "display:block")
         }
         switch (event.target.className){
             case "wrong1":
