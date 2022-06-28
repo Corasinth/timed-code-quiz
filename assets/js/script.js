@@ -20,38 +20,49 @@ var numberOfCorrect= 0
 //Identifying timer fields
 var seconds = document.getElementById("secondCounter")
 var timeLeft = 100
+var setTime
 //Identifying highscore fields
 
 //=====================Functions=====================
 
+//Sets timer to countdown and displays results. Also writes to score and ends quiz if timer hits 0, or lower than 0.
 function timer () {
-    var setTime = setInterval (function () {
+    setTime = setInterval (function () {
     timeLeft -= 1;
-    seconds.textContent = timeLeft;
-    if (timeLeft === 0) {
+    displayTime()
+    if (timeLeft < 0) {
         clearInterval (setTime);
+        timeLeft = 0
+        displayTime()
         for (var i=0; i<document.getElementsByClassName("question").length;i++) {
             document.getElementsByClassName("question")[i].setAttribute("style", "display:none")
+            scoreSubmission.setAttribute("style", "display:block")
         }
-        document.getElementById("score").textContent = timeLeft
+        document.getElementById("score").textContent = timeLeft;
     }
 }, 1000) 
 }
 
-
-function correctOrWrong (event) {
-    if (event.target.matches(".wrong")) {
-
-    }
+function displayTime () {
+    seconds.textContent = timeLeft
 }
 
 
 
 //=====================Event Listener=====================
-// Listens for clicks on an answer and judges how to proceed based on correct/incorrect and what question we're on
+
+// Listens for clicks on an answer and judges how to proceed based on what kind of page is displaying and which button was clicked. 
+displayTime()
 document.body.addEventListener ("click", function (event) {
     if (event.target.id === "begin") {
         timer()
+    }
+    if (event.target.matches(".wrong") === true) {
+        timeLeft -= 17
+        displayTime();
+    }
+    if (event.target.id === "submit") {
+        timeLeft = 100
     }
     if (event.target.matches("button") === true) {
        for (var i = 0; i<pageArray.length; i++) {
@@ -61,11 +72,16 @@ document.body.addEventListener ("click", function (event) {
             if ([i] == pageArray.length - 1) {
             pageArray[0].setAttribute("style", "display:block");
             break;
-        } else {
+        } else if ([i] == pageArray.length - 2) {
+            pageArray[i+1].setAttribute("style", "display:block");
+            clearInterval(setTime);
+            document.getElementById("score").textContent = timeLeft;
+            break;
+        } else
             pageArray[i+1].setAttribute("style", "display:block");
             break;
         }
         }
         }
     }
-})
+)
