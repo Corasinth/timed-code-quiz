@@ -17,6 +17,15 @@ var pageArray = [startPage, question1, question2, question3, question4, question
 //=====================Functions=====================
 
 
+function timer () {
+    
+}
+
+function correctOrWrong (event) {
+    if (event.target.matches(".wrong")) {
+
+    }
+}
 
 
 
