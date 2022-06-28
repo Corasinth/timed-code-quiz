@@ -45,10 +45,16 @@ function timer () {
 }, 1000) 
 }
 
+//Shorter way to set the time display in various places
 function displayTime () {
-    seconds.textContent = timeLeft
+    if (timeLeft < 0) {
+        timeLeft = 0
+    }
+seconds.textContent = timeLeft
 }
+    
 
+//Calculates score so that a person who runs out of time but got correct answers doesn't get a score of 0
 function calculateScore (timeScore, correctAnswers) {
     score = timeScore + (correctAnswers*17);
     return score;
@@ -59,15 +65,19 @@ function calculateScore (timeScore, correctAnswers) {
 
 // Listens for clicks on an answer and judges how to proceed based on what kind of page is displaying and which button was clicked. 
 document.body.addEventListener ("click", function (event) {
+    //Starts timer at quiz start
     if (event.target.id === "begin") {
         timer()
     }
+    //Create time penalty for incorrect answer
     if (event.target.matches(".wrong") === true) {
         timeLeft -= 17
         displayTime();
+    //Keeps track of correct answers for score calculator
     } else if (event.target.matches(".correct") === true) {
         numberOfCorrect += 1
     }
+    //Handles form submission and resetting the quiz
     if (event.target.id === "submit") {
         displayTime()
         calculateScore(timeLeft, numberOfCorrect)
@@ -76,7 +86,15 @@ document.body.addEventListener ("click", function (event) {
         console.log (score)
         timeLeft = 100
         score = 0
- }
+    }
+    //Handles resetting quiz without submitting form
+    if (event.target.id === "submit1") {
+        displayTime()
+        calculateScore(timeLeft, numberOfCorrect)
+        timeLeft = 100
+        score = 0
+    }   
+ //Handles making the correct set of elements appear and dissapear
     if (event.target.matches("button") === true) {
        for (var i = 0; i<pageArray.length; i++) {
         var currentIndex = pageArray[i];
@@ -88,6 +106,7 @@ document.body.addEventListener ("click", function (event) {
         } else if ([i] == pageArray.length - 2) {
             pageArray[i+1].setAttribute("style", "display:block");
             clearInterval(setTime);
+            displayTime()
             document.getElementById("score").textContent = calculateScore(timeLeft, numberOfCorrect)
             break;
         } else
