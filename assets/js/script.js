@@ -34,14 +34,17 @@ var includesForbidden = false
 //Gets scoreArray information from local storage, sets currrent scoreArray to stored value, and writes that to the highscore list
 function highscoreHandling () {
     scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
-    scoreArray.sort()
     scoreList.textContent = ""
+    if (Boolean(scoreArray) !== false) {
+    scoreArray.sort()
+    }
     for (var i=0;i<scoreArray.length;i++) {
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(scoreArray[i]));
         scoreList.appendChild(li)
     }
-}
+}    
+
 
 //Sets timer to countdown and displays results. Also writes to score and ends quiz if timer hits 0, or lower than 0.
 function timer () {
