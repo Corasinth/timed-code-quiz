@@ -32,18 +32,22 @@ var includesForbidden = false
 //=====================Functions=====================
 
 //Gets scoreArray information from local storage, sets currrent scoreArray to stored value, and writes that to the highscore list
+
 function highscoreHandling () {
-    scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
-    scoreList.textContent = ""
+    if (Boolean(JSON.parse(localStorage.getItem("scoreArray"))) !== false) {
+        scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
+        scoreList.textContent = ""
+    }
     if (scoreArray !== null) {
         scoreArray.sort()
         for (var i=0;i<scoreArray.length;i++) {
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(scoreArray[i]));
         scoreList.appendChild(li)
+        
     }
 }
-}    
+} 
 
 
 //Sets timer to countdown and displays results. Also writes to score and ends quiz if timer hits 0, or lower than 0.
@@ -121,7 +125,8 @@ document.body.addEventListener ("click", function (event) {
         localStorage.setItem("scoreArray", JSON.stringify(scoreArray))
         highscoreHandling()
         timeLeft = 60;
-        score = 0;    
+        score = 0;
+        initialsInput.value = ""
         displayTime();
         }
     }
@@ -130,6 +135,7 @@ document.body.addEventListener ("click", function (event) {
         calculateScore(timeLeft, numberOfCorrect)
         timeLeft = 60;
         score = 0;
+        initialsInput.value = ""
         displayTime();
     }   
  //Handles making the correct set of elements appear and dissapear
