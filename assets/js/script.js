@@ -35,14 +35,14 @@ var includesForbidden = false
 function highscoreHandling () {
     scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
     scoreList.textContent = ""
-    if (Boolean(scoreArray) !== false) {
-    scoreArray.sort()
-    }
-    for (var i=0;i<scoreArray.length;i++) {
+    if (scoreArray !== null) {
+        scoreArray.sort()
+        for (var i=0;i<scoreArray.length;i++) {
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(scoreArray[i]));
         scoreList.appendChild(li)
     }
+}
 }    
 
 

@@ -20,7 +20,9 @@ If your README is very long, add a table of contents to make it easy for users t
 
 
 ## Usage 
+Below is a demonstration of the basic functionality. 
 
+![gif of a timed code quiz being answered](./assets/images/)
 
 ## Credits
 
