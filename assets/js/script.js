@@ -32,9 +32,9 @@ var includesForbidden = false
 //=====================Functions=====================
 
 //Gets scoreArray information from local storage, sets currrent scoreArray to stored value, and writes that to the highscore list
-
 function highscoreHandling () {
     scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
+    scoreArray.sort()
     scoreList.textContent = ""
     for (var i=0;i<scoreArray.length;i++) {
         var li = document.createElement("li");
@@ -76,7 +76,7 @@ function calculateScore (timeScore, correctAnswers) {
     return score;
 }
 
-//Checks to make sure no one is inputting numbers as initials
+//Checks to make sinitialsArray.value includes only letters
 function checkForbidden () {
     for (var i=0;i<forbiddenArray.length;i++) {
         includesForbidden = Array.from(initialsInput.value).includes(forbiddenArray[i])
@@ -104,7 +104,7 @@ document.body.addEventListener ("click", function (event) {
     } else if (event.target.matches(".correct") === true) {
         numberOfCorrect += 1;
     }
-    //Handles form submission and resetting the quiz
+    //Handles form submission, error alerts, and resetting the quiz
     if (event.target.id === "submit") {
         if (Boolean(initialsInput.value) === false) {
             window.alert ("Please enter your initials to save your score! Or, click 'Continue Without Submitting' to let your score go.")
@@ -135,9 +135,11 @@ document.body.addEventListener ("click", function (event) {
         var currentIndex = pageArray[i];
         if (window.getComputedStyle((currentIndex)).display === "block") {
             pageArray[i].setAttribute("style", "display:none");
+            //Loops quiz back to start button
             if ([i] == pageArray.length - 1) {
             pageArray[0].setAttribute("style", "display:block");
             break;
+        //Makes score page appear if your answer the last question
         } else if ([i] == pageArray.length - 2) {
             pageArray[i+1].setAttribute("style", "display:block");
             clearInterval(setTime);
