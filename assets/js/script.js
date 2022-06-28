@@ -1,30 +1,31 @@
 //=====================Variables=====================
 
 //Identifying 'pages'
-var startPage = document.getElementById("startpage")
-var question1 = document.getElementById("question1")
-var question2 = document.getElementById("question2")
-var question3 = document.getElementById("question3")
-var question4 = document.getElementById("question4")
-var question5 = document.getElementById("question5")
-var question6 = document.getElementById("question6")
-var scoreSubmission = document.getElementById("scoresubmission")
+var startPage = document.getElementById("startpage");
+var question1 = document.getElementById("question1");
+var question2 = document.getElementById("question2");
+var question3 = document.getElementById("question3");
+var question4 = document.getElementById("question4");
+var question5 = document.getElementById("question5");
+var question6 = document.getElementById("question6");
+var scoreSubmission = document.getElementById("scoresubmission");
 
-var pageArray = [startPage, question1, question2, question3, question4, question5, question6,scoreSubmission]
+var pageArray = [startPage, question1, question2, question3, question4, question5, question6,scoreSubmission];
 
 //Corrent and incorrect answers
-var correct = document.getElementsByClassName("correct")
-var wrong = document.getElementsByClassName("wrong")
-var numberOfCorrect= 0
+var correct = document.getElementsByClassName("correct");
+var wrong = document.getElementsByClassName("wrong");
+var numberOfCorrect= 0;
 
 //Identifying timer fields
-var seconds = document.getElementById("secondCounter")
-var timeLeft = 60
-var setTime
+var seconds = document.getElementById("secondCounter");
+var timeLeft = 60;
+var setTime;
 
 //Identifying highscore fields
-var initialsInput = document.querySelector("#initials");
-var scoreArray = []
+var initialsInput = document.getElementById("initials");
+var scoreList = document.getElementById("scoreList");
+var scoreArray = [];
 
 //=====================Functions=====================
 
@@ -32,6 +33,11 @@ var scoreArray = []
 
 function highscoreHandling () {
     scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
+    for (var i=0;i<scoreArray.length;i++) {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(scoreArray[i]));
+        scoreList.appendChild(li)
+    }
 }
 
 //Sets timer to countdown and displays results. Also writes to score and ends quiz if timer hits 0, or lower than 0.
@@ -41,11 +47,11 @@ function timer () {
     displayTime()
     if (timeLeft < 0) {
         clearInterval (setTime);
-        timeLeft = 0
-        displayTime()
+        timeLeft = 0;
+        displayTime();
         for (var i=0; i<document.getElementsByClassName("question").length;i++) {
-            document.getElementsByClassName("question")[i].setAttribute("style", "display:none")
-            scoreSubmission.setAttribute("style", "display:block")
+            document.getElementsByClassName("question")[i].setAttribute("style", "display:none");
+            scoreSubmission.setAttribute("style", "display:block");
         }
         document.getElementById("score").textContent = calculateScore(timeLeft, numberOfCorrect);
     }
@@ -55,9 +61,9 @@ function timer () {
 //Shorter way to set the time display in various places
 function displayTime () {
     if (timeLeft < 0) {
-        timeLeft = 0
+        timeLeft = 0;
     }
-seconds.textContent = timeLeft
+seconds.textContent = timeLeft;
 }
     
 
@@ -67,14 +73,14 @@ function calculateScore (timeScore, correctAnswers) {
     return score;
 }
 
-
 //=====================Event Listener=====================
 
 // Listens for clicks on an answer and judges how to proceed based on what kind of page is displaying and which button was clicked. 
 document.body.addEventListener ("click", function (event) {
     //Starts timer at quiz start
     if (event.target.id === "begin") {
-        timer()
+        timer();
+        numberOfCorrect = 0;
     }
     //Create time penalty for incorrect answer
     if (event.target.matches(".wrong") === true) {
@@ -82,24 +88,24 @@ document.body.addEventListener ("click", function (event) {
         displayTime();
     //Keeps track of correct answers for score calculator
     } else if (event.target.matches(".correct") === true) {
-        numberOfCorrect += 1
+        numberOfCorrect += 1;
     }
     //Handles form submission and resetting the quiz
     if (event.target.id === "submit") {
-        calculateScore(timeLeft, numberOfCorrect)
-        scoreArray.push (initialsInput.value + " | " + score)
-        console.log (scoreArray)
+        calculateScore(timeLeft, numberOfCorrect);
+        scoreArray.push (initialsInput.value + "_" + score)
+        console.log (scoreArray);
         localStorage.setItem("scoreArray", JSON.stringify(scoreArray))
-        timeLeft = 60
-        score = 0       
-        displayTime()
+        timeLeft = 60;
+        score = 0;    
+        displayTime();
     }
     //Handles resetting quiz without submitting form
     if (event.target.id === "submit1") {
         calculateScore(timeLeft, numberOfCorrect)
-        timeLeft = 60
-        score = 0
-        displayTime()
+        timeLeft = 60;
+        score = 0;
+        displayTime();
     }   
  //Handles making the correct set of elements appear and dissapear
     if (event.target.matches("button") === true) {
@@ -126,4 +132,5 @@ document.body.addEventListener ("click", function (event) {
 )
 
 //=====================Calling Functions=====================
-highscoreHandling()
+highscoreHandling();
+displayTime()
