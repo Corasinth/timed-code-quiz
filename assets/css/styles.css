@@ -23,7 +23,7 @@ body {
 }
 
 /*Start-quiz question styling*/
-#openingscreen {
+#startpage {
     width:fit-content;
     margin: auto;
     position: absolute;
@@ -35,7 +35,7 @@ body {
     text-align: center;
     display: table;
     flex-direction: column; 
-    display:none;  
+    display:block;  
 }
 
 /*Question box styling*/
@@ -65,7 +65,7 @@ body {
 /*Individual stylings for each question box*/
 
 #question1 {
-    display:block;
+    display:none;
 }
 
 #question2 {
@@ -101,7 +101,7 @@ button:hover {
 }
 
 /*Highscore submission styling*/
-.scoresubmission {
+#scoresubmission {
     width:fit-content;
     margin: auto;
     position: absolute;
