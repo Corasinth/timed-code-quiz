@@ -20,20 +20,32 @@ document.body.addEventListener ("click", function (event) {
             break;
             case "correct1":
             console.log ("correct!");
+            question1.setAttribute("style", "display:none")
+            question2.setAttribute("style", "display:block")
             break;
             case "correct2":
+            question1.setAttribute("style", "display:none")
+            question2.setAttribute("style", "display:block")
             console.log ("correct!");
             break;
             case "correct3":
+            question1.setAttribute("style", "display:none")
+            question2.setAttribute("style", "display:block")
             console.log ("correct!");
             break;
             case "correct4":
+            question1.setAttribute("style", "display:none")
+            question2.setAttribute("style", "display:block")
             console.log ("correct!");
             break;
             case "correct5":
+            question1.setAttribute("style", "display:none")
+            question2.setAttribute("style", "display:block")
             console.log ("correct!");
             break;
             case "correct6":
+            question1.setAttribute("style", "display:none")
+            question2.setAttribute("style", "display:block")
             console.log ("correct!");
             break;
         }
