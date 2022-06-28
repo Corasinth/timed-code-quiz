@@ -25,7 +25,9 @@ var setTime;
 //Identifying highscore fields
 var initialsInput = document.getElementById("initials");
 var scoreList = document.getElementById("scoreList");
-var scoreArray = [];
+var scoreArray = []
+var forbiddenArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "+", "/", ",", ".", ":", ";", '"', "'", "[", "]", "{", "}", "|", "\\", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_"];
+var includesForbidden = false
 
 //=====================Functions=====================
 
@@ -33,6 +35,7 @@ var scoreArray = [];
 
 function highscoreHandling () {
     scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
+    scoreList.textContent = ""
     for (var i=0;i<scoreArray.length;i++) {
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(scoreArray[i]));
@@ -45,14 +48,14 @@ function timer () {
     setTime = setInterval (function () {
     timeLeft -= 1;
     displayTime()
-    if (timeLeft < 0) {
+    if (timeLeft <= 0) {
         clearInterval (setTime);
         timeLeft = 0;
         displayTime();
         for (var i=0; i<document.getElementsByClassName("question").length;i++) {
             document.getElementsByClassName("question")[i].setAttribute("style", "display:none");
-            scoreSubmission.setAttribute("style", "display:block");
         }
+        scoreSubmission.setAttribute("style", "display:block");
         document.getElementById("score").textContent = calculateScore(timeLeft, numberOfCorrect);
     }
 }, 1000) 
@@ -71,6 +74,17 @@ seconds.textContent = timeLeft;
 function calculateScore (timeScore, correctAnswers) {
     score = timeScore + (correctAnswers*10);
     return score;
+}
+
+//Checks to make sure no one is inputting numbers as initials
+function checkForbidden () {
+    for (var i=0;i<forbiddenArray.length;i++) {
+        includesForbidden = Array.from(initialsInput.value).includes(forbiddenArray[i])
+        if (includesForbidden === true) {
+            break;
+        }
+    }
+    return includesForbidden;
 }
 
 //=====================Event Listener=====================
@@ -92,13 +106,21 @@ document.body.addEventListener ("click", function (event) {
     }
     //Handles form submission and resetting the quiz
     if (event.target.id === "submit") {
+        if (Boolean(initialsInput.value) === false) {
+            window.alert ("Please enter your initials to save your score! Or, click 'Continue Without Submitting' to let your score go.")
+            return;
+        } else if (checkForbidden () === true ) {
+            window.alert ("Please enter only letters into the initials field. Or, click 'Continue Without Submitting' to let your score go.")
+            return;
+        } else {
         calculateScore(timeLeft, numberOfCorrect);
-        scoreArray.push (initialsInput.value + "_" + score)
-        console.log (scoreArray);
+        scoreArray.push (initialsInput.value + "__" + score)
         localStorage.setItem("scoreArray", JSON.stringify(scoreArray))
+        highscoreHandling()
         timeLeft = 60;
         score = 0;    
         displayTime();
+        }
     }
     //Handles resetting quiz without submitting form
     if (event.target.id === "submit1") {
