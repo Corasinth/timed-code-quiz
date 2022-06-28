@@ -40,13 +40,18 @@ function timer () {
             document.getElementsByClassName("question")[i].setAttribute("style", "display:none")
             scoreSubmission.setAttribute("style", "display:block")
         }
-        document.getElementById("score").textContent = timeLeft;
+        document.getElementById("score").textContent = calculateScore(timeLeft, numberOfCorrect);
     }
 }, 1000) 
 }
 
 function displayTime () {
     seconds.textContent = timeLeft
+}
+
+function calculateScore (timeScore, correctAnswers) {
+    score = timeScore + (correctAnswers*17);
+    return score;
 }
 
 
@@ -60,12 +65,17 @@ document.body.addEventListener ("click", function (event) {
     if (event.target.matches(".wrong") === true) {
         timeLeft -= 17
         displayTime();
+    } else if (event.target.matches(".correct") === true) {
+        numberOfCorrect += 1
     }
     if (event.target.id === "submit") {
         displayTime()
+        calculateScore(timeLeft, numberOfCorrect)
         localStorage.setItem("initials", initialsInput.value)
-        localStorage.setItem("score", timeLeft)
+        localStorage.setItem("score", score)
+        console.log (score)
         timeLeft = 100
+        score = 0
  }
     if (event.target.matches("button") === true) {
        for (var i = 0; i<pageArray.length; i++) {
@@ -78,7 +88,7 @@ document.body.addEventListener ("click", function (event) {
         } else if ([i] == pageArray.length - 2) {
             pageArray[i+1].setAttribute("style", "display:block");
             clearInterval(setTime);
-            document.getElementById("score").textContent = timeLeft;
+            document.getElementById("score").textContent = calculateScore(timeLeft, numberOfCorrect)
             break;
         } else
             pageArray[i+1].setAttribute("style", "display:block");
