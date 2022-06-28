@@ -28,6 +28,12 @@ var scoreArray = []
 
 //=====================Functions=====================
 
+//Gets scoreArray information from local storage, sets currrent scoreArray to stored value, and writes that to the highscore list
+
+function highscoreHandling () {
+    scoreArray = JSON.parse(localStorage.getItem("scoreArray"))
+}
+
 //Sets timer to countdown and displays results. Also writes to score and ends quiz if timer hits 0, or lower than 0.
 function timer () {
     setTime = setInterval (function () {
@@ -118,3 +124,6 @@ document.body.addEventListener ("click", function (event) {
         }
     }
 )
+
+//=====================Calling Functions=====================
+highscoreHandling()
