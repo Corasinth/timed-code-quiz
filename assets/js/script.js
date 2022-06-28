@@ -21,7 +21,9 @@ var numberOfCorrect= 0
 var seconds = document.getElementById("secondCounter")
 var timeLeft = 100
 var setTime
+
 //Identifying highscore fields
+var initialsInput = document.querySelector("#initials");
 
 //=====================Functions=====================
 
@@ -48,11 +50,9 @@ function displayTime () {
 }
 
 
-
 //=====================Event Listener=====================
 
 // Listens for clicks on an answer and judges how to proceed based on what kind of page is displaying and which button was clicked. 
-displayTime()
 document.body.addEventListener ("click", function (event) {
     if (event.target.id === "begin") {
         timer()
@@ -62,8 +62,11 @@ document.body.addEventListener ("click", function (event) {
         displayTime();
     }
     if (event.target.id === "submit") {
+        displayTime()
+        localStorage.setItem("initials", initialsInput.value)
+        localStorage.setItem("score", timeLeft)
         timeLeft = 100
-    }
+ }
     if (event.target.matches("button") === true) {
        for (var i = 0; i<pageArray.length; i++) {
         var currentIndex = pageArray[i];
